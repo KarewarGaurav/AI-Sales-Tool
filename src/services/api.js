@@ -1,8 +1,8 @@
 import axios from 'axios'
+import { getEnvConfig } from '@/config/env'
 import { validateApiResponse, toDisplayResult } from '@/utils/helpers'
 
-const API_URL = import.meta.env.VITE_API_URL
-const WEBHOOK_PROD = import.meta.env.VITE_API_WEBHOOK_PROD
+const { apiUrl: API_URL, webhookProd: WEBHOOK_PROD } = getEnvConfig()
 
 /** AI generation can take time — 2 minute ceiling before timeout UX */
 const REQUEST_TIMEOUT_MS = 120000
@@ -95,9 +95,7 @@ export function getApiErrorMessage(error) {
     return String(error.response.data.message)
   }
   if (error?.message === 'Network Error' && !error?.response) {
-    const isProxied = String(import.meta.env.VITE_API_URL || '').startsWith(
-      '/api'
-    )
+    const isProxied = String(getEnvConfig().apiUrl || '').startsWith('/api')
     if (!isProxied && !import.meta.env.DEV) {
       return 'Request blocked by browser (CORS). Configure CORS on n8n or use a reverse proxy.'
     }

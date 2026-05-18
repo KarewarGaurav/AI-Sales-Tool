@@ -2,7 +2,9 @@ import { useState, useCallback } from 'react'
 import Sidebar from '@/components/Sidebar'
 import Navbar from '@/components/Navbar'
 import Dashboard from '@/pages/Dashboard'
+import EnvConfigBanner from '@/components/EnvConfigBanner'
 import { Toaster } from '@/components/ui/toaster'
+import { getEnvConfig } from '@/config/env'
 
 export default function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -20,8 +22,11 @@ export default function App() {
     setMobileMenuOpen(false)
   }, [])
 
+  const { isValid: envReady } = getEnvConfig()
+
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] text-[#E8EDF7]">
+      <EnvConfigBanner />
       <div className="pointer-events-none fixed inset-0 bg-grid-texture opacity-30" />
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(59,224,255,0.06)_0%,transparent_50%)]" />
 
@@ -45,7 +50,7 @@ export default function App() {
         />
 
         <main>
-          <Dashboard />
+          {envReady ? <Dashboard /> : null}
         </main>
       </div>
 
