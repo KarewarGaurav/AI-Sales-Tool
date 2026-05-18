@@ -1,10 +1,10 @@
 import path from 'path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -20,6 +20,8 @@ export default defineConfig(({ mode }) => {
     },
   }
 
+  const previewPort = Number(process.env.PORT) || 4173
+
   return {
     plugins: [react(), tailwindcss()],
     resolve: {
@@ -32,8 +34,11 @@ export default defineConfig(({ mode }) => {
     },
     preview: {
       proxy: proxyConfig,
-      port: 4173,
-      strictPort: false,
+      host: true,
+      port: previewPort,
+      strictPort: !!process.env.PORT,
+      // Render / other PaaS use custom hostnames — allow all in preview (production serve)
+      allowedHosts: true,
     },
     build: {
       target: 'es2020',
