@@ -1,0 +1,126 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-heading: 'Sora', 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --color-bg-primary: #0b1220;
+  --color-bg-elevated: #111a2e;
+  --color-bg-surface: #151f35;
+  --color-bg-muted: #1a2744;
+  --color-border: rgba(59, 224, 255, 0.12);
+  --color-border-strong: rgba(79, 140, 255, 0.25);
+  --color-accent: #3be0ff;
+  --color-accent-2: #4f8cff;
+  --color-text-primary: #e8edf7;
+  --color-text-muted: #8b9bb8;
+  --color-text-dim: #5c6b88;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-info: #60a5fa;
+}
+
+:root {
+  --bg-primary: #0b1220;
+  --bg-elevated: #111a2e;
+  --bg-surface: #151f35;
+  --bg-muted: #f4f6fb;
+  --bg-soft: #eef1f8;
+  --accent: #3be0ff;
+  --accent-2: #4f8cff;
+  --gradient-surface: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.95) 0%,
+    rgba(17, 26, 46, 0.88) 50%,
+    rgba(21, 31, 53, 0.92) 100%
+  );
+  --gradient-accent: linear-gradient(120deg, #3be0ff 0%, #4f8cff 100%);
+  --shadow-glow: 0 0 40px rgba(59, 224, 255, 0.08);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+/* Grid texture overlay */
+.bg-grid-texture {
+  background-image:
+    linear-gradient(rgba(59, 224, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 224, 255, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Entrance animations */
+@keyframes fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-slide-up {
+  animation: fade-slide-up 0.45s ease-out forwards;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 1.8s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 1.2s linear infinite;
+}
+
+/* Scrollbar for output cards */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(59, 224, 255, 0.25);
+  border-radius: 3px;
+}
